@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        bebas: ['Bebas Neue', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-950">
+    <header class="bg-gray-800 border-b border-gray-700 p-5 px-10">
+        <div class="flex items-center gap-3">
+            <a>
+                <span
+                    class="text-lg sm:text-4xl text-red-500 font-bold font-bebas font-bold tracking-wider">CineTrack</span>
+            </a>
+        </div>
+    </header>
+    <div class="m-12">
+        <div class="flex items-center justify-between gap-4">
+            <div>
+                <input type="text" id="searchInput" placeholder="Search..."
+                    class="bg-gray-600 rounded-xl p-3 placeholder:text-white placeholder:font-bold border-4 border-red-500 mx-3 text-white">
+                <label for="filter" class="text-white font-bold">Filter by :</label>
+                <select name="filter" id="filter"
+                    class="bg-gray-600 rounded-xl p-3 border-4 border-red-500 text-white font-bold">
+                    <option value="1">All</option>
+                    <option value="series">Series</option>
+                    <option value="movies">Movies</option>
+                </select>Filter by:
+            </div>
+
+            <div>
+                <button id="btn-prev" type="button"
+                    class="px-3 py-3 rounded-lg bg-gray-600 text-white hover:bg-red-500 transition-all text-sm font-poppins font-medium">Prev</button>
+                <span id="page-info" class="text-sm text-white font-bold px-2">Page # sur #</span>
+                <button id="btn-next" type="button"
+                    class="px-3 py-3 rounded-lg bg-gray-600 text-white hover:bg-red-500 transition-all text-sm font-poppins font-medium">Next</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
