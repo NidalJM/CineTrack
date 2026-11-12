@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchInput = document.getElementById('searchInput');
     const filterInput = document.getElementById('filter');
     const btnPrev = document.getElementById('btn-prev');
-    const btnNext =  document.getElementById('btn-next');
+    const btnNext = document.getElementById('btn-next');
     const pageCounter = document.getElementById('page-info')
 
-    function handleFilters()    {
+    function handleFilters() {
         const query = searchInput.value.toLowerCase().trim();
         const filterValue = filterInput.value;
 
@@ -25,43 +25,60 @@ document.addEventListener('DOMContentLoaded', async () => {
             const matchTitle = item.title.toLowerCase().includes(query);
 
             let matchType = false;
-            if (filterValue === "1" || filterValue === "all")   {
+            if (filterValue === "1" || filterValue === "all") {
                 matchType = true;
             }
-            else if (filterValue === "series")  {
+            else if (filterValue === "series") {
                 matchType = item.type === "series"
             }
-            else if (filterValue === "movies" || filterValue === "movie")   {
+            else if (filterValue === "movies" || filterValue === "movie") {
                 matchType = item.type === "movie";
             }
             return matchTitle && matchType;
-            
+
         })
         currentPage = 1;
         afficher()
     }
 
     function afficher() {
-        totalPages = Math.ceil(filteredMedia.length/itemsPerspage) || 1;
+        totalPages = Math.ceil(filteredMedia.length / itemsPerspage) || 1;
         const start = (currentPage - 1) * itemsPerspage;
 
         const pageItems = filteredMedia.slice(start, start + itemsPerspage)
         grid.innerHTML = pageItems.map(createCard).join('')
         pageCounter.textContent = `Page ${currentPage} sur ${totalPages}`;
+
+        if (currentPage === 1) {
+            btnPrev.className = 'px-3 py-3 rounded-lg bg-gray-600 text-white transition-all text-sm font-poppins font-medium'
+            btnNext.className = 'px-3 py-3 rounded-lg bg-red-600 text-white hover:bg-red-300 transition-all text-sm font-poppins font-medium'
+        }
+        if (currentPage > 1 && currentPage < totalPages) {
+            btnPrev.className = 'px-3 py-3 rounded-lg bg-red-600 text-white hover:bg-red-300 transition-all text-sm font-poppins font-medium'
+            btnNext.className = 'px-3 py-3 rounded-lg bg-red-600 text-white hover:bg-red-300 transition-all text-sm font-poppins font-medium'
+        }
+        if (currentPage === totalPages) {
+            btnPrev.className = 'px-3 py-3 rounded-lg bg-red-600 text-white hover:bg-red-300 transition-all text-sm font-poppins font-medium'
+            btnNext.className = 'px-3 py-3 rounded-lg bg-gray-600 text-white transition-all text-sm font-poppins font-medium'
+        }
     }
 
+
+
     btnNext.addEventListener('click', () => {
-        if (currentPage < totalPages)   {
-            currentPage+= 1;
+        if (currentPage < totalPages) {
+            currentPage += 1;
             afficher();
         }
     })
     btnPrev.addEventListener('click', () => {
-        if (currentPage > 1)    {
+        if (currentPage > 1) {
             currentPage -= 1;
             afficher();
         }
     })
+
+
     searchInput.addEventListener('input', handleFilters);
     filterInput.addEventListener('change', handleFilters);
 
