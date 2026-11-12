@@ -37,16 +37,30 @@ document.addEventListener('DOMContentLoaded', async () => {
             return matchTitle && matchType;
             
         })
-        
+        currentPage = 1;
         afficher()
     }
 
     function afficher() {
-        const pageItems = filteredMedia.slice(1, 1 + 8)
-        grid.innerHTML = filteredMedia.map(createCard).join('')
+        totalPages = Math.ceil(filteredMedia.length/itemsPerspage) || 1;
+        const start = (currentPage - 1) * itemsPerspage;
+
+        const pageItems = filteredMedia.slice(start, start + itemsPerspage)
+        grid.innerHTML = pageItems.map(createCard).join('')
     }
 
-
+    btnNext.addEventListener('click', () => {
+        if (currentPage < totalPages)   {
+            currentPage+= 1;
+            afficher();
+        }
+    })
+    btnPrev.addEventListener('click', () => {
+        if (currentPage > 1)    {
+            currentPage -= 1;
+            afficher();
+        }
+    })
     searchInput.addEventListener('input', handleFilters);
     filterInput.addEventListener('change', handleFilters);
 
