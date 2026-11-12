@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const pageItems = filteredMedia.slice(start, start + itemsPerspage)
         grid.innerHTML = pageItems.map(createCard).join('')
+        pageCounter.textContent = `Page ${currentPage} sur ${totalPages}`;
     }
 
     btnNext.addEventListener('click', () => {
