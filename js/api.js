@@ -1,7 +1,16 @@
-export async function fetchCatalog()  {
-    const apiUrl= 'https://raw.githubusercontent.com/ouchad97/cinetrack-api/main/cinetrack-data.json';
+export async function fetchCatalog() {
+    const apiUrl = 'https://raw.githubusercontent.com/ouchad97/cinetrack-api/main/cinetrack-data.json';
+    try {
+        const response = await fetch(apiUrl);
 
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
+        if (!response.ok) {
+            throw new console.error("Erreur API");
+        }
+        const data = await response.json();
+        return data;
+    }   catch (error)   {
+        console.log("Failed to fetch catalog:", error);
+        throw error
+    }
+
 }
