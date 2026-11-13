@@ -28,31 +28,37 @@
 
 <body class="bg-gray-950">
 
-    <header class="bg-gray-800 border-b border-gray-700 p-5 px-10">
+    <header class="bg-gray-800 border-b border-gray-700 p-5 px-6 sm:px-10 flex items-center justify-between">
         <div class="flex items-center gap-3">
             <a>
                 <span
                     class="text-lg sm:text-4xl text-red-500 font-bold font-bebas font-bold tracking-wider">CineTrack</span>
             </a>
         </div>
+
+        <button id="openFavBtn" type="button" class="lg:hidden flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-3.5 py-2 rounded-lg text-sm font-poppins font-semibold transition-all z-50">
+            <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M128 128C128 92.7 156.7 64 192 64L448 64C483.3 64 512 92.7 512 128L512 545.1C512 570.7 483.5 585.9 462.2 571.7L320 476.8L177.8 571.7C156.5 585.9 128 570.6 128 545.1L128 128zM192 112C183.2 112 176 119.2 176 128L176 515.2L293.4 437C309.5 426.3 330.5 426.3 346.6 437L464 515.2L464 128C464 119.2 456.8 112 448 112L192 112z"/></svg>
+        </button>
     </header>
-    <main class="grid grid-cols-[3fr_1fr]">
+    <main class="grid grid-cols-1 lg:grid-cols-[3fr_1fr]">
         <section>
-            <div class="m-12">
-                <div class="flex items-center justify-between gap-4">
-                    <div>
+            <div class="m-6 sm:m-12">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
                         <input type="text" id="searchInput" placeholder="Recherche..."
-                            class="bg-gray-600 rounded-xl p-3 placeholder:text-white placeholder:font-bold focus:border-4 border-red-500 mx-3 text-white transition-all">
-                        <label for="filter" class="text-white font-bold">Filtrer par :</label>
-                        <select name="filter" id="filter"
-                            class="bg-gray-600 rounded-xl p-3 focus:border-4 border-red-500 text-white font-bold transition-all">
-                            <option value="1">Tous</option>
-                            <option value="series">Series</option>
-                            <option value="movies">Movies</option>
-                        </select>
+                            class="w-full sm:w-auto bg-gray-600 rounded-xl p-3 placeholder:text-white placeholder:font-bold focus:border-4 border-red-500 text-white transition-all">
+                        <div class="flex items-center gap-2">
+                            <label for="filter" class="text-white font-bold">Filtrer par :</label>
+                            <select name="filter" id="filter"
+                                class="bg-gray-600 rounded-xl p-3 focus:border-4 border-red-500 text-white font-bold transition-all">
+                                <option value="1">Tous</option>
+                                <option value="series">Series</option>
+                                <option value="movies">Movies</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="flex items-center gap-2">
                         <button id="btn-prev" type="button"
                             class="px-3 py-3 rounded-lg bg-gray-600 text-white hover:bg-red-500 transition-all text-sm font-poppins font-medium">Prev</button>
                         <span id="page-info" class="text-sm text-white font-bold px-2">Page # sur #</span>
@@ -76,7 +82,7 @@
         </section>
 
         <aside id="favoriteSidebar"
-            class="sticky top-0 h-screen bg-gray-900 border-l border-gray-800 p-6 flex flex-col justify-between shadow-2xl">
+         class="hidden lg:flex fixed lg:sticky top-0 right-0 h-screen w-80 lg:w-auto bg-gray-900 border-l border-gray-800 p-6 flex-col justify-between shadow-2xl z-40">
             <div>
                 <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                     <h2 class="text-2xl font-bebas tracking-wider text-red-500">Mes Favoris</h2>

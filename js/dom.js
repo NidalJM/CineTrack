@@ -1,9 +1,9 @@
 export function createCard(item, isFav = false) {
-    return `<div data-id="${item.id}" class="card relative cursor-pointer bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-red-500 hover:-translate-y-3 transition-all">
+    return `<div data-id="${item.id}" class="card relative cursor-pointer bg-gray-800 rounded-xl overflow-hidden hover:-translate-y-3 shadow-md hover:shadow-xl hover:shadow-red-500 transition-all">
         <button data-id="${item.id}" type="button" class="fav-btn absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-gray-900/80 flex items-center justify-center text-lg">
             ${isFav ? '❤️' : '🤍'}
         </button>
-        <img src="${item.image}" class="w-full object-cover">
+        <img src="${item.image}" class="w-full h-60 sm:h-auto  object-cover">
         <div class="p-4 flex flex-col justify-between">
             <h3 class="text-white font-bold text-lg font-poppins">${item.title}</h3>
             <div class="flex justify-between items-center text-sm text-gray-400 mt-2">

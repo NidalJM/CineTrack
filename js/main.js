@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const pageCounter = document.getElementById('page-info')
     const modal = document.getElementById('detailModal');
     const closeModalBtn = document.getElementById('closeModal');
-    const favoriteList = document.getElementById('favoriteList')
+    const favoriteList = document.getElementById('favoriteList');
+    const favoriteSidebar = document.getElementById('favoriteSidebar');
+    const openFavBtn = document.getElementById('openFavBtn');
     try {
         allItems = await fetchCatalog()
         filteredMedia = [...allItems]
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    function updateFavorites()  {
+    function updateFavorites() {
         localStorage.setItem("favorites", JSON.stringify(favIds));
         const favItems = allItems.filter(item => favIds.includes(item.id));
         renderFavorites(favItems);
@@ -106,8 +108,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.stopPropagation();
             const id = favBtn.dataset.id;
             favIds = favIds.includes(id)
-            ? favIds.filter(favId => favId !== id)
-            : [...favIds, id]
+                ? favIds.filter(favId => favId !== id)
+                : [...favIds, id]
 
             updateFavorites()
             return;
@@ -126,11 +128,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         favIds = favIds.filter(id => id !== removeBtn.dataset.id);
         updateFavorites()
     })
-
+    openFavBtn.addEventListener('click', () => {
+        favoriteSidebar.classList.toggle('hidden')
+    })
     closeModalBtn.addEventListener('click', closeModal);
 
-    modal.addEventListener('click',(e) =>   {
-        if (e.target.id === 'detailModal')  {
+    modal.addEventListener('click', (e) => {
+        if (e.target.id === 'detailModal') {
             closeModal();
         }
     })
