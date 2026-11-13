@@ -20,10 +20,10 @@ export function renderFavorites(favItems) {
     const seriesCount = document.getElementById('seriesCount');
 
     const counts = favItems.reduce((acc, item) => {
-        if (item.type === 'movie')  acc.movies++
+        if (item.type === 'movie') acc.movies++
         if (item.type === 'series') acc.series++;
         return acc;
-    }, {movies: 0, series: 0})
+    }, { movies: 0, series: 0 })
 
     moviesCount.textContent = counts.movies;
     seriesCount.textContent = counts.series;
@@ -31,9 +31,15 @@ export function renderFavorites(favItems) {
     list.innerHTML = favItems.length === 0
         ? `<li class="text-gray-500 text-sm text-center py-6">Aucun favori ajouté.</li>`
         : favItems.map(item => `
-        <li class= "flex items-center justify-between bg-gray-800 p-2 rounded-lg">
-        <span class= "text-white text-sm font-semibold truncate">${item.title}</span>
-        <button data-id="${item.id}" type="button" class="remove-fav text-gray-400 hover:text-red-500 font-bold text-lg px-2">&times;</button>
+<li class="flex items-center justify-between gap-2 bg-gray-800 hover:bg-red-100/50 p-2 rounded-lg transition-all">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <img src="${item.image}" alt="${item.title}" class="w-10 h-14 object-cover rounded shrink-0">
+                <div class="overflow-hidden">
+                    <p class="text-white text-sm font-bold truncate">${item.title}</p>
+                    <p class="text-red-400 text-xs font-semibold uppercase">${item.type}</p>
+                </div>
+            </div>
+            <button data-id="${item.id}" type="button" class="remove-fav text-gray-400 hover:text-red-500 font-bold text-lg px-2 shrink-0">&times;</button>
         </li>
         `).join('');
 }
