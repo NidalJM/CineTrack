@@ -1,6 +1,7 @@
 export function createCard(item) {
-    return `<div data-id="${item.id}"class= "card bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-red-500 hover:-translate-y-3 transition-all">
-        <img src= "${item.image}" class="w-full object-cover">
+    return `<div data-id="${item.id}"class= "card relative bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-red-500 hover:-translate-y-3 transition-all">
+        
+    <img src= "${item.image}" class="w-full object-cover">
         <div class="p-4 flex flex-col justify-between">
         <h3 class= "text-white font-bold text-lg font-poppins">${item.title}</h3>
         <div class= "flex justify-between items-center text-sm text-gray-400 mt-2">
