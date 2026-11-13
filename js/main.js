@@ -1,8 +1,9 @@
 import { fetchCatalog } from "./api.js";
-import { createCard, openModal, closeModal } from "./dom.js";
+import { createCard, openModal, closeModal, renderFavorites } from "./dom.js";
 
 let allItems = [];
 let filteredMedia = [];
+let favIds = JSON.parse(localStorage.getItem("favorites")) || []
 let currentPage = 1;
 const itemsPerspage = 8;
 let totalPages = 1;
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const pageCounter = document.getElementById('page-info')
     const modal = document.getElementById('detailModal');
     const closeModalBtn = document.getElementById('closeModal');
+    const favoriteList = document.getElementById('favoriteList')
     try {
         allItems = await fetchCatalog()
         filteredMedia = [...allItems]
@@ -25,6 +27,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             Impossible de charger les données. Veuillez réessayer plus tard.
         </div>`;
         return;
+    }
+
+    function updateFavorites()  {
+        localStorage.setItem("favorites", JSON.stringify(favIds));
+        const favItems = allItems.filter(item => favIds.includes(item.id));
+        renderFavorites(favItems);
+        afficher()
     }
 
     function handleFilters() {
@@ -56,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const start = (currentPage - 1) * itemsPerspage;
 
         const pageItems = filteredMedia.slice(start, start + itemsPerspage)
-        grid.innerHTML = pageItems.map(createCard).join('')
+        grid.innerHTML = pageItems.map(item => createCard(item, favIds.includes(item.id))).join('')
         pageCounter.textContent = `Page ${currentPage} sur ${totalPages}`;
 
         if (filteredMedia.length === 0) {
@@ -92,6 +101,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     })
     grid.addEventListener('click', (e) => {
+        const favBtn = e.target.closest('.fav-btn');
+        if (favBtn) {
+            e.stopPropagation();
+            const id = favBtn.dataset.id;
+            favIds = favIds.includes(id)
+            ? favIds.filter(favId => favId !== id)
+            : [...favIds, id]
+
+            updateFavorites()
+            return;
+        }
         const card = e.target.closest('.card');
         if (!card) return;
 
@@ -99,6 +119,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const item = allItems.find((i) => i.id === id)
         if (item) openModal(item)
     });
+    favoriteList.addEventListener('click', (e) => {
+        const removeBtn = e.target.closest('.remove-fav');
+        if (!removeBtn) return;
+
+        favIds = favIds.filter(id => id !== removeBtn.dataset.id);
+        updateFavorites()
+    })
+
     closeModalBtn.addEventListener('click', closeModal);
 
     modal.addEventListener('click',(e) =>   {
@@ -111,4 +139,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     filterInput.addEventListener('change', handleFilters);
 
     afficher()
+    updateFavorites()
 })
