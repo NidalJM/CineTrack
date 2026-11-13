@@ -1,5 +1,5 @@
 import { fetchCatalog } from "./api.js";
-import { createCard } from "./dom.js";
+import { createCard, openModal, closeModal } from "./dom.js";
 
 let allItems = [];
 let filteredMedia = [];
@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
     const pageCounter = document.getElementById('page-info')
+    const modal = document.getElementById('detailModal');
+    const closeModalBtn = document.getElementById('closeModal');
     try {
         allItems = await fetchCatalog()
         filteredMedia = [...allItems]
@@ -89,7 +91,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             afficher();
         }
     })
+    grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        if (!card) return;
 
+        const id = card.dataset.id;
+        const item = allItems.find((i) => i.id === id)
+        if (item) openModal(item)
+    });
+    closeModalBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click',(e) =>   {
+        if (e.target.id === 'detailModal')  {
+            closeModal();
+        }
+    })
 
     searchInput.addEventListener('input', handleFilters);
     filterInput.addEventListener('change', handleFilters);
