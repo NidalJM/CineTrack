@@ -1,5 +1,5 @@
 import { fetchCatalog } from "./api.js";
-import { createCard, openModal } from "./dom.js";
+import { createCard, openModal, closeModal } from "./dom.js";
 
 let allItems = [];
 let filteredMedia = [];
@@ -99,7 +99,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const item = allItems.find((i) => i.id === id)
         if (item) openModal(item)
     });
+    closeModalBtn.addEventListener('click', closeModal);
 
+    modal.addEventListener('click',(e) =>   {
+        if (e.target.id === 'detailModal')  {
+            closeModal();
+        }
+    })
 
     searchInput.addEventListener('input', handleFilters);
     filterInput.addEventListener('change', handleFilters);

@@ -45,3 +45,9 @@ export function openModal(item) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
 }
+
+export function closeModal()   {
+    const modal = document.getElementById('detailModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex')
+}
