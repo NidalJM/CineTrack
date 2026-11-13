@@ -17,8 +17,8 @@ export function openModal(item) {
     const modalContent = document.getElementById('modalContent');
 
     const extraInfo = item.type === "movie"
-        ? `<p><span class="text-gray-400 font-semibold">Durée :</span> ${item.duration} min</p>`
-        : `<p><span class="text-gray-400 font-semibold">Saisons :</span> ${Array.isArray(item.seasons) ? item.seasons.join(', ') : item.seasons}</p>`;
+        ? `<p class="font-bold"><span class="text-gray-400 font-semibold">Durée :</span> ${item.duration} min</p>`
+        : `<p class="font-bold"><span class="text-gray-400 font-semibold">Saisons :</span> ${Array.isArray(item.seasons) ? item.seasons.join(', ') : item.seasons}</p>`;
 
     modalContent.innerHTML = `
     <img src="${item.image}" alt="${item.title}" class="w-full sm:w-2/5 h-72 sm:h-auto object-cover">
@@ -34,8 +34,9 @@ export function openModal(item) {
 
     <div class="space-y-1.5 text-sm">
         ${extraInfo}
-        <p><span class="text-gray-400 font-semibold">Genres: </span></p>
-        <p><span class="text-gray-400 font-semibold">Realisateurs: </span></p>
+        <p class="font-bold"><span class="text-gray-400 font-semibold">Genres: </span>${item.genres}</p>
+        <p class="font-bold"><span class="text-gray-400 font-semibold">Realisateurs: </span>${item.directors}</p>
+        <p class="font-bold"><span class="text-gray-400 font-semibold">Pays de production: </span>${item.productionCountries}</p>
     </div>
 
     <p class="text-gray-300 text-sm leading-relaxed border-t border-gray-700 pt-3">${item.description}</p>
