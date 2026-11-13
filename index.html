@@ -61,9 +61,11 @@
         </div>
 
         <div id="cardGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 m-12 gap-10">
-            <div id="detailModal" class="fixed hidden justify-center items-center">
-                <button id="closeModal">Close</button>
-                <div id="modalContent" class=""></div>
+        </div>
+        <div id="detailModal" class="fixed inset-0 bg-black/80 hidden justify-center items-center p-4 z-50">
+            <div class="bg-gray-800 border border-gray-700 rounded-xl max-w-3xl w-full relative text-white shadow-2xl overflow-hidden">
+                <button id="closeModal" class="absolute top-3 right-4 text-gray-400 hover:text-red-500 text-3xl font-bold z-10">&times;</button>
+                <div id="modalContent" class="flex flex-col sm:flex-row"></div>
             </div>
         </div>
     </main>

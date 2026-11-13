@@ -1,5 +1,5 @@
-export function createCard(item)    {
-    return `<div data-id="${item.id}"class= "bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-red-500 hover:-translate-y-3 transition-all">
+export function createCard(item) {
+    return `<div data-id="${item.id}"class= "card bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-red-500 hover:-translate-y-3 transition-all">
         <img src= "${item.image}" class="w-full object-cover">
         <div class="p-4 flex flex-col justify-between">
         <h3 class= "text-white font-bold text-lg font-poppins">${item.title}</h3>
@@ -10,4 +10,38 @@ export function createCard(item)    {
         </div>
         </div>
     `
+}
+
+export function openModal(item) {
+    const modal = document.getElementById('detailModal');
+    const modalContent = document.getElementById('modalContent');
+
+    const extraInfo = item.type === "movie"
+        ? `<p><span class="text-gray-400 font-semibold">Durée :</span> ${item.duration} min</p>`
+        : `<p><span class="text-gray-400 font-semibold">Saisons :</span> ${Array.isArray(item.seasons) ? item.seasons.join(', ') : item.seasons}</p>`;
+
+    modalContent.innerHTML = `
+    <img src="${item.image}" alt="${item.title}" class="w-full sm:w-2/5 h-72 sm:h-auto object-cover">
+
+<div class="w-full sm:w-3/5 p-6 flex flex-col justify-between space-y-4">
+    <div>
+        <h2 class="text-3xl font-bebas tracking-wider text-red-500 pr-6">${item.title}</h2>
+        <div class="flex items-center gap-2 mt-1">
+            <span class="uppercase text-xs px-2 py-0.5 bg-red-500/20 text-red-400 rounded font-bold">${item.type}</span>
+            <span class="text-sm text-gray-400">${item.releaseYear}</span>
+        </div>
+    </div>
+
+    <div class="space-y-1.5 text-sm">
+        ${extraInfo}
+        <p><span class="text-gray-400 font-semibold">Genres: </span></p>
+        <p><span class="text-gray-400 font-semibold">Realisateurs: </span></p>
+    </div>
+
+    <p class="text-gray-300 text-sm leading-relaxed border-t border-gray-700 pt-3">${item.description}</p>
+</div>
+    `
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
