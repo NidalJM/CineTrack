@@ -14,16 +14,28 @@ export function createCard(item, isFav = false) {
     </div>`;
 }
 
-export function renderFavorites(favItems)   {
+export function renderFavorites(favItems) {
     const list = document.getElementById('favoriteList');
+    const moviesCount = document.getElementById('moviesCount');
+    const seriesCount = document.getElementById('seriesCount');
+
+    const counts = favItems.reduce((acc, item) => {
+        if (item.type === 'movie')  acc.movies++
+        if (item.type === 'series') acc.series++;
+        return acc;
+    }, {movies: 0, series: 0})
+
+    moviesCount.textContent = counts.movies;
+    seriesCount.textContent = counts.series;
+
     list.innerHTML = favItems.length === 0
-    ? `<li class="text-gray-500 text-sm text-center py-6">Aucun favori ajouté.</li>`
-    :   favItems.map(item =>    `
+        ? `<li class="text-gray-500 text-sm text-center py-6">Aucun favori ajouté.</li>`
+        : favItems.map(item => `
         <li class= "flex items-center justify-between bg-gray-800 p-2 rounded-lg">
         <span class= "text-white text-sm font-semibold truncate">${item.title}</span>
         <button data-id="${item.id}" type="button" class="remove-fav text-gray-400 hover:text-red-500 font-bold text-lg px-2">&times;</button>
         </li>
-        `).join('');    
+        `).join('');
 }
 
 export function openModal(item) {
@@ -61,7 +73,7 @@ export function openModal(item) {
     modal.classList.add('flex');
 }
 
-export function closeModal()   {
+export function closeModal() {
     const modal = document.getElementById('detailModal');
     modal.classList.add('hidden');
     modal.classList.remove('flex')
